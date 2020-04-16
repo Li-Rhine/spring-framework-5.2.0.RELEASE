@@ -1,9 +1,16 @@
 package com.imooc;
 
+import com.imooc.controller.WelcomeController;
+import com.imooc.entity.User;
 import com.imooc.service.WelcomeService;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
+@Configuration
+@ComponentScan("com.imooc")
 public class Entrance {
 	public static void main(String[] args) {
 		System.out.println("Hello World");
@@ -12,5 +19,34 @@ public class Entrance {
 		ApplicationContext applicationContext = new FileSystemXmlApplicationContext(xmlPath);
 		WelcomeService welcomeService = (WelcomeService) applicationContext.getBean("welcomeService");
 		welcomeService.sayHello("强大的spring框架");
+
+		//得到无参构造函数创建的对象
+		User user1a = (User) applicationContext.getBean("user1");
+		User user1b = (User) applicationContext.getBean("user1");
+
+		//得到静态工厂创建的对象
+		User user2a = (User) applicationContext.getBean("user2");
+		User user2c = (User) applicationContext.getBean("user2");
+
+		//得到实例工厂创建的对象
+		User user3a = (User) applicationContext.getBean("user3");
+		User user3b = (User) applicationContext.getBean("user3");
+		System.out.println("无参构造函数创建的对象：" + user1a);
+		System.out.println("无参构造函数创建的对象：" + user1b);
+		System.out.println("静态工厂创建的对象：" + user2a);
+		System.out.println("静态工厂创建的对象：" + user2c);
+		System.out.println("实例创建的对象：" + user3a);
+		System.out.println("实例创建的对象：" + user3b);
+
+	}
+
+	public static void main2(String[] args) {
+		AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(Entrance.class);
+		String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
+		for (String beanDefinitionName: beanDefinitionNames) {
+			System.out.println(beanDefinitionName);
+		}
+		WelcomeController welcomeController = (WelcomeController) applicationContext.getBean("welcomeController");
+		welcomeController.handleRequest();
 	}
 }
