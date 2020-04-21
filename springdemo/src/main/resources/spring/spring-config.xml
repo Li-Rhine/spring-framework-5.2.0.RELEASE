@@ -16,4 +16,5 @@
 	<!--需要先创建factoryBean对象，再通过factoryBean对象进行调用-->
 	<bean id="userFactory" class="com.imooc.entity.factory.UserFactory"/>
 	<bean id="user3" factory-bean="userFactory" factory-method="getUser" scope="prototype"/>
+	<bean id="userFactoryBean" class="com.imooc.entity.factory.UserFactoryBean"/>
 </beans>
