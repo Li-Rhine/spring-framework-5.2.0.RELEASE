@@ -36,3 +36,10 @@ doGetBean
     5、递归实例化显式依赖的Bean depends-on
     6、根据不同的Scope采用不同的策略创建Bean实例
     7、对Bean进行类型检查
+    
+    
+createBean
+    1、Bean类型解析
+    2、处理方法覆盖
+    3、Bean实例化前的后置处理
+    4、doCreateBean
